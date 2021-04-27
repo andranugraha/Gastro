@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gastro.</title>
+    <script src="https://sdk.scdn.co/spotify-player.js"></script>
+    <script>
+        window.onSpotifyWebPlaybackSDKReady = () => {
+        const token = 'BQBiwDKPgWIkTyv16JCE9X21IV2OnmjB-qN_qAHsSH9AzXc167ZQcvTxM5rOulYXGCcsGfH2dW5R4lH46dQAa8DvpGHTt4JoEJ-b7ees3kNTYEjtVCM698x7jcvC8oMUJR8t1xZY9MVX4cf4e2WCl5JKY1g_ALuwWD8qvR0N7Rbx3dtFGmXci1Y';
+        const player = new Spotify.Player({
+            name: 'Web Playback SDK Quick Start Player',
+            getOAuthToken: cb => { cb(token); }
+        });
+    
+        // Error handling
+        player.addListener('initialization_error', ({ message }) => { console.error(message); });
+        player.addListener('authentication_error', ({ message }) => { console.error(message); });
+        player.addListener('account_error', ({ message }) => { console.error(message); });
+        player.addListener('playback_error', ({ message }) => { console.error(message); });
+    
+        // Playback status updates
+        player.addListener('player_state_changed', state => { console.log(state); });
+    
+        // Ready
+        player.addListener('ready', ({ device_id }) => {
+            console.log('Ready with Device ID', device_id);
+        });
+    
+        // Not Ready
+        player.addListener('not_ready', ({ device_id }) => {
+            console.log('Device ID has gone offline', device_id);
+        });
+    
+        // Connect to the player!
+        player.connect();
+        };
+    </script>
+</head>
+<body>
+<header>
+    <app-bar></app-bar>
+</header>
+<main class="container text-center justify-content-center">
+    <h1 class="title main">Gastro.</h1>
+    <h4 class="subtitle">#1 Gastronomy Wiki</h4>
+    <search-bar></search-bar>
+    <meal-list class="row"></meal-list>
+</main>
+</body>
+</html>
